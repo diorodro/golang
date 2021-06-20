@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
+
+const delay = 2
 
 func main() {
 	fmt.Println("Seja Bem-Vindo!")
@@ -45,7 +48,18 @@ func leComando() int {
 
 func iniciarMonitoramento() {
 	fmt.Println("Monitoramento Iniciado...")
-	site := "https://random-status-code.herokuapp.com/"
+	sites := []string{"https://random-status-code.herokuapp.com/",
+		"https://random-status-code.herokuapp.com/",
+		"https://random-status-code.herokuapp.com/",
+		"https://random-status-code.herokuapp.com/"}
+
+	for _, site := range sites {
+		testaSite(site)
+		time.Sleep(delay * time.Second)
+	}
+}
+
+func testaSite(site string) {
 	resp, _ := http.Get(site)
 
 	if resp.StatusCode == 200 {
